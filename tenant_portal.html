@@ -16,24 +16,71 @@
         .available { background: #1e293b; color: #3b82f6; border: 1px solid #3b82f6; }
         .progress { background: #ca8a04; color: white; }
         .done { background: #16a34a; color: white; }
-        .btn { background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: 0.2s; }
-        .btn:hover { background: #2563eb; }
+        .btn { background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; }
         .btn-complete { background: #16a34a; margin-right: 5px; }
-        .btn-complete:hover { background: #15803d; }
         .btn-quit { background: #ef4444; }
-        .btn-quit:hover { background: #dc2626; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="logo">ASTRIflow <span style="color:white; font-size: 14px;">Management</span></div>
-        <a href="index.html" style="color: #64748b; text-decoration: none; font-size: 12px;">← Back to Terminal</a>
+        <a href="index.html" style="color: #64748b; text-decoration: none; font-size: 12px;">← Back to Selection</a>
     </div>
 
     <div class="card">
         <h3 style="margin-top: 0; font-size: 16px; color: #3b82f6;">Live Dispatch Board</h3>
         <table>
             <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="jobBoard">
+                <tr>
+                    <td>John Smith (HVAC)</td>
+                    <td class="status-cell"><span class="status-tag available">Available</span></td>
+                    <td class="action-cell"><button class="btn" onclick="claimJob(this)">Claim Job</button></td>
+                </tr>
+                <tr>
+                    <td>Sarah Miller (Plumbing)</td>
+                    <td class="status-cell"><span class="status-tag available">Available</span></td>
+                    <td class="action-cell"><button class="btn" onclick="claimJob(this)">Claim Job</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function claimJob(button) {
+            const row = button.closest('tr');
+            const statusCell = row.querySelector('.status-cell');
+            const actionCell = row.querySelector('.action-cell');
+            
+            statusCell.innerHTML = '<span class="status-tag progress">In Progress</span>';
+            actionCell.innerHTML = `
+                <button class="btn btn-complete" onclick="completeJob(this)">Complete</button>
+                <button class="btn btn-quit" onclick="forceQuit(this)">Quit</button>
+            `;
+        }
+
+        function completeJob(button) {
+            if(confirm("Confirm job completion?")) {
+                const row = button.closest('tr');
+                row.querySelector('.status-cell').innerHTML = '<span class="status-tag done">Done</span>';
+                button.parentElement.innerHTML = '<span style="color: #64748b;">Archived</span>';
+            }
+        }
+
+        function forceQuit(button) {
+            if(confirm("Are you sure you want to force quit?")) {
+                button.closest('tr').remove();
+            }
+        }
+    </script>
+</body>
+</html>
                 <tr>
                     <th>Customer</th>
                     <th>Status</th>
