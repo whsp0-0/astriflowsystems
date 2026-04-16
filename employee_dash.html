@@ -11,7 +11,7 @@
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
         .tech-id { font-size: 10px; color: var(--blue); font-weight: bold; }
         
-        .timer-box { background: #1e293b; color: var(--blue); padding: 10px; text-align: center; border-radius: 2px; margin-bottom: 15px; border: 1px solid var(--blue); display: none; }
+        .timer-box { background: #0f172a; color: var(--blue); padding: 10px; text-align: center; border-radius: 2px; margin-bottom: 15px; border: 1px solid var(--blue); display: none; }
         .timer-val { font-size: 20px; font-weight: bold; }
 
         .active-job { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 15px; border-left: 4px solid var(--blue); }
@@ -36,7 +36,7 @@
     </div>
 
     <div class="timer-box" id="timer-display">
-        <span class="label" style="color:white">Active Job Duration</span>
+        <span class="label" style="color:white">Job Duration</span>
         <div class="timer-val" id="timer-clock">00:00:00</div>
     </div>
 
@@ -44,15 +44,16 @@
         <span class="customer-name">John Smith</span>
         
         <div class="data-grid">
-            <div><span class="label">Phone</span><span class="val">(606) 555-0199</span></div>
+            <div><span class="label">Phone</span><span class="val"><a href="tel:6065550199" style="color:var(--blue); text-decoration:none;">(606) 555-0199</a></span></div>
             <div><span class="label">Status</span><span id="job-status" class="val" style="color:var(--red)">PENDING</span></div>
-            <div style="grid-column: span 2;"><span class="label">Job Description</span><span class="val">HVAC Leaking - Emergency Repair</span></div>
+            <div style="grid-column: span 2;"><span class="label">Address</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
+            <div style="grid-column: span 2;"><span class="label">Description</span><span class="val">HVAC leaking fluid in attic. Diagnostic required.</span></div>
         </div>
 
         <button id="claim-btn" class="btn btn-blue" onclick="claimJob()">Claim & Start Route</button>
         
         <div id="active-actions" class="hidden">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=Somerset,KY" target="_blank" class="btn btn-maps">Navigate to Job</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=123+Main+St+Somerset+KY+42501" target="_blank" class="btn btn-maps">Open GPS Route</a>
             <button class="btn btn-green" style="margin-top: 10px;" onclick="completeJob()">Mark as Completed</button>
         </div>
     </div>
@@ -86,8 +87,7 @@
                 clearInterval(timerInterval);
                 document.getElementById('job-card').style.opacity = "0.3";
                 document.getElementById('job-status').innerText = "FINISHED";
-                document.getElementById('job-status').style.color = var(--green);
-                alert("Job Logged. Return to base.");
+                document.getElementById('job-status').style.color = "#16a34a";
             }
         }
     </script>
