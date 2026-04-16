@@ -2,38 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRIflow Owner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTRIflow Management Portal</title>
     <style>
-        body { background: #020617; color: #f1f5f9; font-family: -apple-system, sans-serif; margin: 0; padding: 10px; }
-        .header { border-bottom: 1px solid #3b82f6; padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-        
-        /* AI Stats Bar */
-        .ai-stats { display: flex; gap: 8px; margin-bottom: 12px; }
-        .ai-box { background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; flex: 1; padding: 8px; text-align: center; }
-        .ai-val { display: block; font-size: 14px; font-weight: bold; color: #3b82f6; }
-        .ai-lbl { font-size: 8px; color: #64748b; text-transform: uppercase; font-weight: bold; }
+        body { background: #0f172a; color: #f8fafc; font-family: sans-serif; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .logo { font-size: 20px; font-weight: bold; color: #3b82f6; }
+        .card { background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { text-align: left; color: #64748b; padding: 10px; border-bottom: 1px solid #334155; }
+        td { padding: 12px 10px; border-bottom: 1px solid #1e293b; }
+        .status-tag { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; }
+        .available { background: #1e293b; color: #3b82f6; border: 1px solid #3b82f6; }
+        .progress { background: #ca8a04; color: white; }
+        .done { background: #16a34a; color: white; }
+        .btn { background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: 0.2s; }
+        .btn:hover { background: #2563eb; }
+        .btn-complete { background: #16a34a; margin-right: 5px; }
+        .btn-complete:hover { background: #15803d; }
+        .btn-quit { background: #ef4444; }
+        .btn-quit:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">ASTRIflow <span style="color:white; font-size: 14px;">Management</span></div>
+        <a href="index.html" style="color: #64748b; text-decoration: none; font-size: 12px;">← Back to Terminal</a>
+    </div>
 
-        /* Fleet Status */
-        .fleet-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; }
-        .tech-status { background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; padding: 8px; min-width: 90px; text-align: center; }
-        .status-text { font-size: 8px; font-weight: 800; text-transform: uppercase; display: block; margin-top: 2px; line-height: 1; }
-        .t-online { color: #10b981; }
-        .t-busy { color: #f59e0b; }
+    <div class="card">
+        <h3 style="margin-top: 0; font-size: 16px; color: #3b82f6;">Live Dispatch Board</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="jobBoard">
+                <tr>
+                    <td>John Smith (HVAC)</td>
+                    <td class="status-cell"><span class="status-tag available">Available</span></td>
+                    <td class="action-cell"><button class="btn" onclick="claimJob(this)">Claim Job</button></td>
+                </tr>
+                <tr>
+                    <td>Sarah Miller (Plumbing)</td>
+                    <td class="status-cell"><span class="status-tag available">Available</span></td>
+                    <td class="action-cell"><button class="btn" onclick="claimJob(this)">Claim Job</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        /* Lead Card */
-        .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid #3b82f6; position: relative; }
-        .is-emergency { border-left-color: #ef4444; }
-        
-        .c-head { padding: 6px 10px; background: rgba(255,255,255,0.03); font-size: 9px; color: #64748b; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; }
-        
-        .urg-tag { background: #ef4444; color: white; padding: 1px 4px; border-radius: 2px; font-weight: 900; font-size: 7px; margin-left: 4px; vertical-align: middle; }
+    <script>
+        function claimJob(button) {
+            const row = button.closest('tr');
+            const statusCell = row.querySelector('.status-cell');
+            const actionCell = row.querySelector('.action-cell');
+            
+            // 1. Update Status to Progress
+            statusCell.innerHTML = '<span class="status-tag progress">In Progress</span>';
+            
+            // 2. Change Button to Complete/Quit
+            actionCell.innerHTML = `
+                <button class="btn btn-complete" onclick="completeJob(this)">Complete</button>
+                <button class="btn btn-quit" onclick="forceQuit(this)">Quit</button>
+            `;
+        }
 
-        .menu-dots { cursor: pointer; padding: 0 5px; font-size: 16px; color: #64748b; font-weight: bold; }
-        .menu-content { display: none; position: absolute; right: 8px; top: 30px; background: #1e293b; border: 1px solid #3b82f6; border-radius: 4px; z-index: 10; }
-        .menu-item { padding: 10px 12px; font-size: 11px; border-bottom: 1px solid #0f172a; white-space: nowrap; color: white; }
+        function completeJob(button) {
+            if(confirm("Confirm job completion? This will archive the task.")) {
+                const row = button.closest('tr');
+                // Update Status to Done
+                row.querySelector('.status-cell').innerHTML = '<span class="status-tag done">Done</span>';
+                // Lock the Action Cell
+                button.parentElement.innerHTML = '<span style="color: #64748b; font-style: italic;">Archived</span>';
+            }
+        }
 
-        .c-body { padding: 10px; }
+        function forceQuit(button) {
+            if(confirm("Are you sure you want to force quit? The job will be removed from the active list.")) {
+                const row = button.closest('tr');
+                row.remove(); // Removes the entire row
+            }
+        }
+    </script>
+</body>
+</html>
         .msg { background: #000; padding: 8px; border-radius: 4px; font-size: 12px; margin-bottom: 10px; border-left: 2px solid #3b82f6; line-height: 1.3; }
         .is-emergency .msg { border-left-color: #ef4444; }
 
