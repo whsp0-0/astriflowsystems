@@ -8,13 +8,11 @@
         :root { --blue: #3b82f6; --red: #ef4444; --green: #16a34a; --bg: #020617; --card: #0f172a; --border: #1e293b; }
         body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 10px; font-size: 11px; }
         
-        /* Grid Header */
         .top-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 10px; }
         .stat-box { background: var(--card); border: 1px solid var(--border); padding: 8px 2px; text-align: center; border-radius: 2px; }
         .stat-v { color: var(--blue); font-weight: bold; font-size: 14px; display: block; }
         .stat-l { color: #475569; font-size: 8px; text-transform: uppercase; }
 
-        /* Fleet/Employee Status Box */
         .module { background: var(--card); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 10px; }
         .m-head { background: var(--border); padding: 4px 8px; font-size: 9px; font-weight: bold; color: #94a3b8; display: flex; justify-content: space-between; }
         .m-row { display: flex; justify-content: space-between; padding: 6px 8px; border-bottom: 1px solid var(--border); }
@@ -23,56 +21,56 @@
         .idle { background: #ca8a04; }
         .offline { background: #475569; }
 
-        /* Lead Card - Compact & Color Coded */
-        .lead-card { border-radius: 2px; padding: 10px; position: relative; border-left: 4px solid var(--blue); background: var(--card); }
+        .lead-card { border-radius: 2px; padding: 10px; position: relative; border-left: 4px solid var(--blue); background: var(--card); margin-bottom: 10px; }
         .emergency { border-left-color: var(--red) !important; }
-        .menu-btn { position: absolute; top: 5px; right: 8px; color: #475569; font-size: 18px; cursor: pointer; }
-        .dropdown { display: none; position: absolute; top: 25px; right: 5px; background: #1e293b; border: 1px solid var(--blue); z-index: 10; width: 120px; }
-        .dropdown div { padding: 8px; border-bottom: 1px solid var(--border); cursor: pointer; color: white; font-size: 10px; }
+        .menu-btn { position: absolute; top: 5px; right: 8px; color: #475569; font-size: 18px; cursor: pointer; padding: 5px; }
+        .dropdown { display: none; position: absolute; top: 25px; right: 5px; background: #1e293b; border: 1px solid var(--blue); z-index: 10; width: 120px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .dropdown div { padding: 10px; border-bottom: 1px solid var(--border); cursor: pointer; color: white; font-size: 10px; }
         .dropdown div:hover { background: var(--blue); }
 
         .lead-name { font-size: 13px; font-weight: bold; color: white; margin-bottom: 8px; display: block; }
-        .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
         .lead-item { background: rgba(255,255,255,0.02); padding: 5px; border: 1px solid #1e293b; border-radius: 2px; }
-        .label { color: #475569; font-size: 8px; text-transform: uppercase; display: block; }
-        .val { color: #f8fafc; font-size: 10px; }
+        .full-width { grid-column: span 2; }
+        .label { color: #475569; font-size: 7px; text-transform: uppercase; display: block; }
+        .val { color: #f8fafc; font-size: 9px; word-break: break-all; }
     </style>
 </head>
 <body>
     <div class="top-stats">
-        <div class="stat-box"><span class="stat-v">12</span><span class="stat-l">Total Leads</span></div>
-        <div class="stat-box"><span class="stat-v">03</span><span class="stat-l">Active Techs</span></div>
-        <div class="stat-box"><span class="stat-v">98%</span><span class="stat-l">Efficiency</span></div>
+        <div class="stat-box"><span class="stat-v">12</span><span class="stat-l">Leads</span></div>
+        <div class="stat-box"><span class="stat-v">03</span><span class="stat-l">Techs</span></div>
+        <div class="stat-box"><span class="stat-v">98%</span><span class="stat-l">Uptime</span></div>
     </div>
 
     <div class="module">
-        <div class="m-head">EMPLOYEE STATUS <span>LIVE</span></div>
-        <div class="m-row"><span>Tech_01 (Mobile)</span> <span><span class="dot online"></span> ONLINE</span></div>
-        <div class="m-row"><span>Tech_02 (Field)</span> <span><span class="dot idle"></span> IDLE</span></div>
-        <div class="m-row" style="border:none;"><span>Tech_03 (Support)</span> <span><span class="dot offline"></span> OFFLINE</span></div>
-    </div>
+        <div class="m-head">EMPLOYEE MONITOR</div>
+        <div class="m-row"><span>Tech_01</span> <span><span class="dot online"></span> ONLINE</span></div>
+        <div class="row" style="border:none;"></div> </div>
 
     <div class="lead-card emergency" id="card-1">
         <div class="menu-btn" onclick="toggleMenu(1)">⋮</div>
         <div class="dropdown" id="drop-1">
             <div onclick="claim(1)">CLAIM JOB</div>
-            <div onclick="finish(1)">MARK COMPLETE</div>
-            <div onclick="location.reload()">FORCE QUIT</div>
+            <div onclick="finish(1)">COMPLETE</div>
+            <div onclick="location.reload()">FORCE ABORT</div>
         </div>
         
         <span class="lead-name">John Smith (EMERGENCY)</span>
         <div class="lead-grid">
-            <div class="lead-item"><span class="label">Source</span><span class="val">Email Transcript</span></div>
-            <div class="lead-item"><span class="label">Location</span><span class="val">Somerset, KY</span></div>
-            <div class="lead-item"><span class="label">Phone</span><span class="val">(606) 555-0199</span></div>
-            <div class="lead-item"><span class="label">Status</span><span class="val" id="sts-1" style="color:var(--red)">URGENT</span></div>
+            <div class="lead-item"><span class="label">SOURCE</span><span class="val">Email Transcript</span></div>
+            <div class="lead-item"><span class="label">PHONE</span><span class="val">(606) 555-0199</span></div>
+            <div class="lead-item full-width"><span class="label">EXACT LOCATION</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
+            <div class="lead-item full-width"><span class="label">JOB DESCRIPTION</span><span class="val">HVAC Unit leaking fluid in attic. Immediate dispatch required for diagnostic and repair.</span></div>
+            <div class="lead-item"><span class="label">STATUS</span><span class="val" id="sts-1" style="color:var(--red)">URGENT</span></div>
+            <div class="lead-item"><span class="label">TIME</span><span class="val">09:15 AM</span></div>
         </div>
     </div>
 
     <script>
         function toggleMenu(id) {
             const d = document.getElementById('drop-' + id);
-            d.style.display = d.style.display === 'block' ? 'none' : 'block';
+            d.style.display = (d.style.display === 'block') ? 'none' : 'block';
         }
         function claim(id) {
             document.getElementById('sts-1').innerText = "DISPATCHED";
@@ -85,10 +83,12 @@
                 toggleMenu(id);
             }
         }
-        // Close menu if clicking outside
         window.onclick = function(event) {
             if (!event.target.matches('.menu-btn')) {
-                document.querySelectorAll('.dropdown').forEach(d => d.style.display = 'none');
+                var dropdowns = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = "none";
+                }
             }
         }
     </script>
