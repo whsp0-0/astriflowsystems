@@ -3,86 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRIflow | Command</title>
+    <title>ASTRIflow Command</title>
     <style>
-        :root { --blue: #3b82f6; --bg: #020617; --card: #0f172a; --border: #1e293b; }
-        body { background: var(--bg); color: #f8fafc; font-family: -apple-system, sans-serif; margin: 0; padding: 12px; }
+        :root { --blue: #3b82f6; --red: #ef4444; --green: #16a34a; --bg: #020617; --card: #0f172a; --border: #1e293b; }
+        body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 10px; font-size: 11px; }
         
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .logo { font-size: 18px; font-weight: 900; color: var(--blue); letter-spacing: -1px; }
-        .session-tag { font-size: 9px; color: #ef4444; border: 1px solid #ef4444; padding: 2px 6px; border-radius: 2px; font-weight: bold; }
+        /* Grid Header */
+        .top-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 10px; }
+        .stat-box { background: var(--card); border: 1px solid var(--border); padding: 8px 2px; text-align: center; border-radius: 2px; }
+        .stat-v { color: var(--blue); font-weight: bold; font-size: 14px; display: block; }
+        .stat-l { color: #475569; font-size: 8px; text-transform: uppercase; }
 
-        /* The Grid */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .box { background: var(--card); border: 1px solid var(--border); padding: 12px 0; border-radius: 4px; text-align: center; }
-        .val { display: block; font-size: 20px; font-weight: bold; color: var(--blue); }
-        .lbl { font-size: 8px; color: #475569; text-transform: uppercase; margin-top: 2px; }
+        /* Fleet/Employee Status Box */
+        .module { background: var(--card); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 10px; }
+        .m-head { background: var(--border); padding: 4px 8px; font-size: 9px; font-weight: bold; color: #94a3b8; display: flex; justify-content: space-between; }
+        .m-row { display: flex; justify-content: space-between; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+        .dot { height: 6px; width: 6px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+        .online { background: var(--green); box-shadow: 0 0 5px var(--green); }
+        .idle { background: #ca8a04; }
+        .offline { background: #475569; }
 
-        /* Fleet Monitor */
-        .monitor { background: var(--card); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 15px; }
-        .m-head { background: var(--border); padding: 6px 10px; font-size: 9px; color: #94a3b8; font-weight: bold; }
-        .row { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border); font-size: 11px; }
-        .dot { height: 6px; width: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; }
-        .on { background: #16a34a; box-shadow: 0 0 5px #16a34a; }
+        /* Lead Card - Compact & Color Coded */
+        .lead-card { border-radius: 2px; padding: 10px; position: relative; border-left: 4px solid var(--blue); background: var(--card); }
+        .emergency { border-left-color: var(--red) !important; }
+        .menu-btn { position: absolute; top: 5px; right: 8px; color: #475569; font-size: 18px; cursor: pointer; }
+        .dropdown { display: none; position: absolute; top: 25px; right: 5px; background: #1e293b; border: 1px solid var(--blue); z-index: 10; width: 120px; }
+        .dropdown div { padding: 8px; border-bottom: 1px solid var(--border); cursor: pointer; color: white; font-size: 10px; }
+        .dropdown div:hover { background: var(--blue); }
 
-        /* Dispatch Card */
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 15px; position: relative; border-left: 3px solid var(--blue); }
-        .dots { position: absolute; top: 12px; right: 12px; color: #334155; font-weight: bold; }
-        .j-name { font-size: 15px; font-weight: bold; margin-bottom: 10px; display: block; }
-        .j-line { font-size: 11px; color: #94a3b8; margin-bottom: 4px; display: flex; }
-        .j-tag { width: 65px; color: #475569; font-weight: bold; }
-
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 3px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 15px; }
-        .btn-blue { background: var(--blue); color: white; }
-        .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
-        .btn-green { background: #16a34a; color: white; }
-        .btn-gray { background: #334155; color: white; }
+        .lead-name { font-size: 13px; font-weight: bold; color: white; margin-bottom: 8px; display: block; }
+        .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .lead-item { background: rgba(255,255,255,0.02); padding: 5px; border: 1px solid #1e293b; border-radius: 2px; }
+        .label { color: #475569; font-size: 8px; text-transform: uppercase; display: block; }
+        .val { color: #f8fafc; font-size: 10px; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">ASTRI<span style="color:white">flow</span></div>
-        <div class="session-tag">SECURE_NODE</div>
+    <div class="top-stats">
+        <div class="stat-box"><span class="stat-v">12</span><span class="stat-l">Total Leads</span></div>
+        <div class="stat-box"><span class="stat-v">03</span><span class="stat-l">Active Techs</span></div>
+        <div class="stat-box"><span class="stat-v">98%</span><span class="stat-l">Efficiency</span></div>
     </div>
 
-    <div class="grid">
-        <div class="box"><span class="val">12</span><span class="lbl">Leads</span></div>
-        <div class="box"><span class="val">03</span><span class="lbl">Units</span></div>
-        <div class="box"><span class="val">98%</span><span class="lbl">Uptime</span></div>
+    <div class="module">
+        <div class="m-head">EMPLOYEE STATUS <span>LIVE</span></div>
+        <div class="m-row"><span>Tech_01 (Mobile)</span> <span><span class="dot online"></span> ONLINE</span></div>
+        <div class="m-row"><span>Tech_02 (Field)</span> <span><span class="dot idle"></span> IDLE</span></div>
+        <div class="m-row" style="border:none;"><span>Tech_03 (Support)</span> <span><span class="dot offline"></span> OFFLINE</span></div>
     </div>
 
-    <div class="monitor">
-        <div class="m-head">FLEET OPERATIONS</div>
-        <div class="row"><span>UNIT_01 (Mobile)</span> <span><span class="dot on"></span> ONLINE</span></div>
-        <div class="row" style="border:none;"><span>UNIT_02 (Standby)</span> <span><span class="dot" style="background:#ca8a04"></span> READY</span></div>
-    </div>
-
-    <div class="card" id="card">
-        <div class="dots">⋮</div>
-        <span class="j-name">John Smith</span>
-        <div class="j-line"><span class="j-tag">LOC:</span> Somerset, KY</div>
-        <div class="j-line"><span class="j-tag">TEL:</span> (606) 555-0199</div>
-        <div class="j-line"><span class="j-tag">STATUS:</span> <span id="status" style="color:var(--blue); font-weight:bold;">AVAILABLE</span></div>
+    <div class="lead-card emergency" id="card-1">
+        <div class="menu-btn" onclick="toggleMenu(1)">⋮</div>
+        <div class="dropdown" id="drop-1">
+            <div onclick="claim(1)">CLAIM JOB</div>
+            <div onclick="finish(1)">MARK COMPLETE</div>
+            <div onclick="location.reload()">FORCE QUIT</div>
+        </div>
         
-        <div id="action-zone">
-            <button class="btn btn-blue" onclick="claim()">Claim & Dispatch</button>
+        <span class="lead-name">John Smith (EMERGENCY)</span>
+        <div class="lead-grid">
+            <div class="lead-item"><span class="label">Source</span><span class="val">Email Transcript</span></div>
+            <div class="lead-item"><span class="label">Location</span><span class="val">Somerset, KY</span></div>
+            <div class="lead-item"><span class="label">Phone</span><span class="val">(606) 555-0199</span></div>
+            <div class="lead-item"><span class="label">Status</span><span class="val" id="sts-1" style="color:var(--red)">URGENT</span></div>
         </div>
     </div>
 
     <script>
-        function claim() {
-            document.getElementById('status').innerText = "EN ROUTE";
-            document.getElementById('status').style.color = "#ca8a04";
-            document.getElementById('action-zone').innerHTML = `
-                <div class="btn-row">
-                    <button class="btn btn-green" onclick="finish()">Complete</button>
-                    <button class="btn btn-gray" onclick="location.reload()">Abort</button>
-                </div>`;
+        function toggleMenu(id) {
+            const d = document.getElementById('drop-' + id);
+            d.style.display = d.style.display === 'block' ? 'none' : 'block';
         }
-        function finish() {
+        function claim(id) {
+            document.getElementById('sts-1').innerText = "DISPATCHED";
+            document.getElementById('sts-1').style.color = "#ca8a04";
+            toggleMenu(id);
+        }
+        function finish(id) {
             if(confirm("Archive lead?")) {
-                document.getElementById('card').style.opacity = "0.2";
-                document.getElementById('action-zone').innerHTML = '<div style="text-align:center; font-size:10px; color:#16a34a; font-weight:bold; padding:10px;">ARCHIVED</div>';
+                document.getElementById('card-' + id).style.opacity = "0.2";
+                toggleMenu(id);
+            }
+        }
+        // Close menu if clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-btn')) {
+                document.querySelectorAll('.dropdown').forEach(d => d.style.display = 'none');
             }
         }
     </script>
