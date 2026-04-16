@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRIflow | Owner Terminal</title>
+    <title>ASTRIflow | Admin Hub</title>
     <style>
         :root { --blue: #3b82f6; --red: #ef4444; --bg: #020617; --card: #0f172a; --border: #1e293b; }
         body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 12px; font-size: 11px; }
@@ -17,7 +17,7 @@
         .dot { height: 6px; width: 6px; background: #16a34a; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 5px #16a34a; }
         .card { background: var(--card); border: 1px solid var(--border); padding: 12px; margin-bottom: 10px; border-left: 4px solid var(--blue); position: relative; }
         .emergency { border-left-color: var(--red); }
-        .menu { position: absolute; top: 8px; right: 10px; color: #475569; font-size: 16px; font-weight: bold; }
+        .menu { position: absolute; top: 8px; right: 10px; color: #475569; font-size: 18px; font-weight: bold; cursor: pointer; padding: 5px; }
         .c-name { font-size: 14px; font-weight: 900; color: white; display: block; margin-bottom: 8px; }
         .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .c-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 6px; }
@@ -28,23 +28,23 @@
 </head>
 <body>
     <div class="stat-grid">
-        <div class="stat-box"><span class="stat-val">12</span><span class="stat-lab">Total Leads</span></div>
-        <div class="stat-box"><span class="stat-val">03</span><span class="stat-lab">Active Techs</span></div>
-        <div class="stat-box"><span class="stat-val">98%</span><span class="stat-lab">System Health</span></div>
+        <div class="stat-box"><span class="stat-val">12</span><span class="stat-lab">Leads</span></div>
+        <div class="stat-box"><span class="stat-val">03</span><span class="stat-lab">Techs</span></div>
+        <div class="stat-box"><span class="stat-val">98%</span><span class="stat-lab">Uptime</span></div>
     </div>
     <div class="monitor">
-        <div class="m-head">Network Employee Monitor</div>
-        <div class="m-row"><span>Unit_01 (Online)</span><span><span class="dot"></span> ACTIVE</span></div>
+        <div class="m-head">Employee Monitor</div>
+        <div class="m-row"><span>Unit_01 (Somerset)</span><span><span class="dot"></span> ONLINE</span></div>
     </div>
     <div class="card emergency">
-        <div class="menu">⋮</div>
-        <span class="label" style="color:var(--red); font-weight:900;">! Emergency Dispatch</span>
+        <div class="menu" onclick="alert('Lead Options: Edit, Archive, or Reassign')">⋮</div>
+        <span class="label" style="color:var(--red); font-weight:900;">! EMERGENCY DISPATCH</span>
         <span class="c-name">John Smith</span>
         <div class="c-grid">
             <div class="c-item"><span class="label">Received</span><span class="val">09:45 AM</span></div>
-            <div class="c-item"><span class="label">Priority</span><span class="val" style="color:var(--red)">CRITICAL</span></div>
-            <div class="c-item full"><span class="label">Primary Location</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
-            <div class="c-item full"><span class="label">Incident Report</span><span class="val">HVAC leaking fluid in attic. Diagnostic required.</span></div>
+            <div class="c-item"><span class="label">Priority</span><span class="val" style="color:var(--red)">EMERGENCY</span></div>
+            <div class="c-item full"><span class="label">Location</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
+            <div class="c-item full"><span class="label">Job Description</span><span class="val">HVAC leaking fluid in attic. Diagnostic required.</span></div>
         </div>
     </div>
 </body>
