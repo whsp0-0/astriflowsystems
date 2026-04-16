@@ -3,36 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRIflow | Owner Terminal</title>
+    <title>ASTRIflow | Admin</title>
     <style>
         :root { --blue: #3b82f6; --red: #ef4444; --bg: #020617; --card: #0f172a; --border: #1e293b; }
         body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 10px; font-size: 11px; }
-        
-        .top-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 12px; }
-        .stat-box { background: var(--card); border: 1px solid var(--border); padding: 10px 2px; text-align: center; border-radius: 2px; }
-        .stat-v { color: var(--blue); font-weight: bold; font-size: 15px; display: block; }
-        .stat-l { color: #475569; font-size: 8px; text-transform: uppercase; }
-
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 15px; }
+        .stat-box { background: var(--card); border: 1px solid var(--border); padding: 8px; text-align: center; }
         .module { background: var(--card); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 12px; }
         .m-head { background: var(--border); padding: 5px 8px; font-size: 9px; font-weight: bold; color: #94a3b8; }
         .m-row { display: flex; justify-content: space-between; padding: 7px 8px; border-bottom: 1px solid var(--border); }
-        .dot { height: 6px; width: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; }
-        .online { background: #16a34a; box-shadow: 0 0 5px #16a34a; }
-
-        .lead-card { background: var(--card); border: 1px solid var(--border); padding: 12px; position: relative; border-left: 4px solid var(--blue); margin-bottom: 8px; }
-        .emergency { border-left-color: var(--red) !important; }
-        .menu-btn { position: absolute; top: 6px; right: 10px; color: #475569; font-size: 18px; cursor: pointer; }
-        
-        .lead-name { font-size: 13px; font-weight: bold; color: white; margin-bottom: 10px; display: block; }
-        .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .lead-item { background: rgba(255,255,255,0.02); padding: 6px; border: 1px solid var(--border); border-radius: 2px; }
-        .full { grid-column: span 2; }
-        .label { color: #475569; font-size: 7px; text-transform: uppercase; display: block; margin-bottom: 2px; }
-        .val { font-size: 10px; color: #f8fafc; }
-    </style>
-</head>
-<body>
-    <div class="top-stats">
-        <div class="stat-box"><span class="stat-v">12</span><span class="stat-l">Leads</span></div>
-        <div class="stat-box"><span class="stat-v">03</span><span class="stat-l">Techs</span></div>
-        <div class="stat-
+        .dot { height: 6px; width: 6px; background: #16a34a; border-radius: 50%; display: inline-block; margin-right: 4px; box-shadow: 0 0 5px #16a34a; }
+        .lead-card { background: var(--card); border: 1px solid var(--border); padding: 10px; margin-bottom: 8px; border-left: 4px solid var(--blue); position: relative; }
+        .emergency { border-left-color: var(--red); }
+        .menu-btn { position: absolute; top:
