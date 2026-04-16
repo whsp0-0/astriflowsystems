@@ -3,32 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASTRIflow Jobs</title>
+    <title>ASTRIflow | Management</title>
     <style>
-        body { background: #0a0e17; color: white; font-family: sans-serif; padding: 20px; }
-        .card { background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 8px; margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        td { padding: 15px 5px; border-bottom: 1px solid #1e293b; }
-        .btn { background: #3b82f6; color: white; border: none; padding: 10px; border-radius: 5px; font-weight: bold; width: 100%; }
-        .btn-done { background: #16a34a; margin-bottom: 5px; }
+        body { background: #0a0e17; color: #f8fafc; font-family: sans-serif; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 15px; margin-bottom: 25px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 8px; text-align: center; }
+        .stat-val { font-size: 24px; font-weight: bold; color: #3b82f6; display: block; }
+        .stat-label { font-size: 10px; color: #64748b; text-transform: uppercase; }
+        .job-card { background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+        td { padding: 12px 5px; border-bottom: 1px solid #1e293b; }
+        .btn { background: #3b82f6; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; width: 100%; cursor: pointer; }
+        .btn-complete { background: #16a34a; margin-bottom: 5px; }
         .btn-quit { background: #dc2626; }
-        .tag { font-size: 10px; background: #334155; padding: 2px 5px; border-radius: 3px; }
     </style>
 </head>
 <body>
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="color:#3b82f6; margin:0;">ASTRIflow</h2>
-        <a href="index.html" style="color:#64748b; text-decoration:none; font-size:12px;">← Exit</a>
+    <div class="header">
+        <div style="font-size: 18px; font-weight: bold; color: #3b82f6;">ASTRI<span style="color:white">flow</span></div>
+        <a href="index.html" style="color: #64748b; text-decoration: none; font-size: 12px;">← Logout</a>
     </div>
 
-    <div class="card">
-        <h3 style="margin-top:0; font-size:14px;">Active Dispatch Board</h3>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-val">12</span>
+            <span class="stat-label">Leads Grabbed</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-val">4</span>
+            <span class="stat-label">Active Techs</span>
+        </div>
+    </div>
+
+    <div class="job-card">
+        <h3 style="margin-top:0; font-size:14px; color: #3b82f6;">Live Dispatch Board</h3>
         <table>
             <tbody id="board">
                 <tr>
-                    <td><b>John Smith</b><br><span class="tag">HVAC - Available</span></td>
-                    <td id="cell-1" style="width:100px;">
-                        <button class="btn" onclick="claim(1)">Claim</button>
+                    <td><b>John Smith</b><br><span style="font-size:11px; color:#64748b;">HVAC Mainline</span></td>
+                    <td id="cell-1" style="width:110px;">
+                        <button class="btn" onclick="claim(1)">Claim Job</button>
                     </td>
                 </tr>
             </tbody>
@@ -39,13 +54,13 @@
         function claim(id) {
             const cell = document.getElementById('cell-' + id);
             cell.innerHTML = `
-                <button class="btn btn-done" onclick="finish(this)">Complete</button>
-                <button class="btn btn-quit" onclick="location.reload()">Quit</button>
+                <button class="btn btn-complete" onclick="finish(this)">Complete</button>
+                <button class="btn btn-quit" onclick="location.reload()">Force Quit</button>
             `;
         }
         function finish(btn) {
-            if(confirm("Mark as Finished?")) {
-                btn.parentElement.innerHTML = '<span style="color:#16a34a; font-weight:bold;">ARCHIVED</span>';
+            if(confirm("Archive this job as Completed?")) {
+                btn.parentElement.innerHTML = '<span style="color:#16a34a; font-weight:bold; font-size:12px;">ARCHIVED</span>';
             }
         }
     </script>
