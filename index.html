@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTRIflow Systems | AI Dispatch</title>
+    <style>
+        body { background: #020617; color: #f1f5f9; font-family: -apple-system, sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        .container { padding: 20px; width: 100%; max-width: 400px; }
+        .logo { font-size: 32px; font-weight: 900; color: #3b82f6; letter-spacing: -1px; margin-bottom: 5px; }
+        .tagline { color: #64748b; font-size: 14px; margin-bottom: 40px; text-transform: uppercase; font-weight: bold; }
+        
+        .portal-card { 
+            background: #0f172a; 
+            border: 1px solid #1e293b; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            text-decoration: none; 
+            color: white; 
+            display: block; 
+            transition: 0.3s;
+            border-left: 4px solid #3b82f6;
+        }
+        .portal-card:active { transform: scale(0.98); background: #1e293b; }
+        .portal-card.tech { border-left-color: #10b981; }
+
+        .title { font-size: 18px; font-weight: bold; display: block; margin-bottom: 5px; }
+        .desc { font-size: 12px; color: #64748b; }
+        
+        .footer-note { position: absolute; bottom: 20px; font-size: 10px; color: #1e293b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">ASTRI<span style="color:white;">flow</span></div>
+        <div class="tagline">Next-Gen Dispatch Intelligence</div>
+
+        <a href="owner.html" class="portal-card">
+            <span class="title">Management Portal</span>
+            <span class="desc">Live monitoring, AI lead tracking, and fleet status.</span>
+        </a>
+
+        <a href="employee.html" class="portal-card tech">
+            <span class="title">Field Tech Terminal</span>
+            <span class="desc">Active job dispatch, GPS timers, and completion logs.</span>
+        </a>
+
+        <div style="margin-top: 30px; font-size: 11px; color: #334155;">
+            Authorized Personnel Only
+        </div>
+    </div>
+
+</body>
+</html>
