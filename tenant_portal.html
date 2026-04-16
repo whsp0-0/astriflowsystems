@@ -16,8 +16,8 @@
         .m-row { display: flex; justify-content: space-between; padding: 8px 10px; border-top: 1px solid var(--border); }
         .dot { height: 6px; width: 6px; background: #16a34a; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 5px #16a34a; }
         .card { background: var(--card); border: 1px solid var(--border); padding: 12px; margin-bottom: 10px; border-left: 4px solid var(--blue); position: relative; }
-        .emergency { border-left-color: var(--red); }
-        .menu { position: absolute; top: 8px; right: 10px; color: #475569; font-size: 18px; font-weight: bold; cursor: pointer; padding: 5px; }
+        .emergency { border-left-color: var(--red) !important; }
+        .menu { position: absolute; top: 8px; right: 10px; color: #475569; font-size: 18px; cursor: pointer; }
         .c-name { font-size: 14px; font-weight: 900; color: white; display: block; margin-bottom: 8px; }
         .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .c-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 6px; }
@@ -37,7 +37,7 @@
         <div class="m-row"><span>Unit_01 (Somerset)</span><span><span class="dot"></span> ONLINE</span></div>
     </div>
     <div class="card emergency">
-        <div class="menu" onclick="alert('Lead Options: Edit, Archive, or Reassign')">⋮</div>
+        <div class="menu">⋮</div>
         <span class="label" style="color:var(--red); font-weight:900;">! EMERGENCY DISPATCH</span>
         <span class="c-name">John Smith</span>
         <div class="c-grid">
