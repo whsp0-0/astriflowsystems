@@ -3,30 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASTRIflow Management</title>
+    <title>ASTRIflow | Management Control</title>
     <style>
-        body { background: #020617; color: #f8fafc; font-family: sans-serif; margin: 0; padding: 15px; }
-        .header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid #1e293b; margin-bottom: 20px; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .stat-card { background: #0f172a; border: 1px solid #3b82f6; padding: 12px; border-radius: 10px; text-align: center; }
-        .stat-val { font-size: 22px; font-weight: bold; color: #3b82f6; display: block; }
-        .stat-label { font-size: 9px; color: #94a3b8; text-transform: uppercase; }
-        .job-card { background: #0f172a; border: 1px solid #1e293b; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
-        .job-header { font-size: 14px; font-weight: bold; color: #3b82f6; margin-bottom: 10px; border-bottom: 1px solid #1e293b; padding-bottom: 5px; }
-        .data-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; }
+        body { background: #020617; color: #f8fafc; font-family: sans-serif; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 15px; margin-bottom: 25px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: #0f172a; border: 1px solid #3b82f6; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+        .stat-val { font-size: 26px; font-weight: bold; color: #3b82f6; display: block; }
+        .stat-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Employee Status Section */
+        .tech-status { background: #0f172a; border: 1px solid #1e293b; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
+        .status-row { display: flex; justify-content: space-between; font-size: 13px; padding: 8px 0; border-bottom: 1px solid #1e293b; }
+        .dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .online { background: #16a34a; box-shadow: 0 0 8px #16a34a; }
+        .idle { background: #ca8a04; box-shadow: 0 0 8px #ca8a04; }
+        .offline { background: #ef4444; }
+
+        /* Job Dispatch Cards */
+        .job-card { background: #0f172a; border: 1px solid #1e293b; padding: 20px; border-radius: 12px; border-left: 4px solid #3b82f6; }
+        .job-title { font-size: 16px; font-weight: bold; color: white; margin-bottom: 12px; display: flex; justify-content: space-between; }
+        .data-point { font-size: 12px; margin-bottom: 6px; display: flex; justify-content: space-between; }
         .label { color: #64748b; }
-        .value { color: white; font-weight: 500; }
-        .btn-group { display: flex; gap: 8px; margin-top: 15px; }
-        .btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
-        .btn-claim { background: #3b82f6; color: white; }
+        .val { color: #e2e8f0; font-weight: 500; }
+        
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn { padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; }
+        .btn-claim { background: #3b82f6; color: white; grid-column: span 2; }
         .btn-complete { background: #16a34a; color: white; }
         .btn-quit { background: #dc2626; color: white; }
     </style>
 </head>
 <body>
     <div class="header">
-        <div style="font-weight: bold; color: #3b82f6;">ASTRI<span style="color:white">flow</span></div>
-        <div style="font-size: 10px; color: #475569;">MGMT_PROT_V1</div>
+        <div style="font-size: 20px; font-weight: bold; color: #3b82f6;">ASTRI<span style="color:white">flow</span></div>
+        <a href="index.html" style="color: #475569; text-decoration: none; font-size: 11px; border: 1px solid #1e293b; padding: 5px 10px; border-radius: 5px;">LOGOUT</a>
     </div>
 
     <div class="stats-grid">
@@ -35,39 +46,57 @@
             <span class="stat-label">Leads Grabbed</span>
         </div>
         <div class="stat-card">
-            <span class="stat-val">Online</span>
-            <span class="stat-label">System Status</span>
+            <span class="stat-val">3</span>
+            <span class="stat-label">Active Units</span>
         </div>
     </div>
 
-    <div class="job-card" id="lead-1">
-        <div class="job-header">ACTIVE DISPATCH</div>
-        <div class="data-row"><span class="label">Customer:</span> <span class="value">John Smith</span></div>
-        <div class="data-row"><span class="label">Location:</span> <span class="value">Somerset, KY 42501</span></div>
-        <div class="data-row"><span class="label">Phone:</span> <span class="value">(606) 555-0199</span></div>
-        <div class="data-row"><span class="label">Time:</span> <span class="value">08:30 AM</span></div>
-        <div class="data-row"><span class="label">Status:</span> <span class="value" id="status-1" style="color: #3b82f6;">Available</span></div>
-        
-        <div id="actions-1">
-            <button class="btn btn-claim" onclick="claim(1)">CLAIM JOB</button>
+    <div class="tech-status">
+        <h3 style="margin: 0 0 10px 0; font-size: 12px; color: #3b82f6; text-transform: uppercase;">Fleet Status</h3>
+        <div class="status-row">
+            <span>Tech_01 (Lead)</span>
+            <span><span class="dot online"></span> Online</span>
+        </div>
+        <div class="status-row">
+            <span>Tech_02 (Dispatch)</span>
+            <span><span class="dot idle"></span> Idle</span>
+        </div>
+        <div class="status-row" style="border:none;">
+            <span>Tech_03 (Support)</span>
+            <span><span class="dot offline"></span> Offline</span>
+        </div>
+    </div>
+
+    <div class="job-card" id="job-area">
+        <div class="job-title">
+            <span>Live Lead: John Smith</span>
+            <span style="color: #3b82f6; font-size: 10px;">08:35 AM</span>
+        </div>
+        <div class="data-point"><span class="label">Location:</span> <span class="val">Somerset, KY 42501</span></div>
+        <div class="data-point"><span class="label">Phone:</span> <span class="val">(606) 555-0199</span></div>
+        <div class="data-point"><span class="label">Service:</span> <span class="val">HVAC Emergency</span></div>
+        <div class="data-point"><span class="label">Status:</span> <span class="val" id="status-text" style="color: #3b82f6;">Ready for Dispatch</span></div>
+
+        <div id="action-zone">
+            <button class="btn btn-claim" onclick="claim()">CLAIM & START DISPATCH</button>
         </div>
     </div>
 
     <script>
-        function claim(id) {
-            document.getElementById('status-'+id).innerText = "In Progress";
-            document.getElementById('status-'+id).style.color = "#ca8a04";
-            document.getElementById('actions-'+id).innerHTML = `
+        function claim() {
+            document.getElementById('status-text').innerText = "In Progress";
+            document.getElementById('status-text').style.color = "#ca8a04";
+            document.getElementById('action-zone').innerHTML = `
                 <div class="btn-group">
-                    <button class="btn btn-complete" onclick="finish(${id})">COMPLETE</button>
-                    <button class="btn btn-quit" onclick="location.reload()">QUIT</button>
+                    <button class="btn btn-complete" onclick="finish()">COMPLETE</button>
+                    <button class="btn btn-quit" onclick="location.reload()">FORCE QUIT</button>
                 </div>
             `;
         }
-        function finish(id) {
-            if(confirm("Archive lead?")) {
-                document.getElementById('lead-'+id).style.opacity = "0.4";
-                document.getElementById('actions-'+id).innerHTML = '<div style="text-align:center; font-size:12px; color:#16a34a; font-weight:bold; margin-top:10px;">ARCHIVED</div>';
+        function finish() {
+            if(confirm("Confirm Job Completion?")) {
+                document.getElementById('job-area').style.opacity = "0.3";
+                document.getElementById('action-zone').innerHTML = '<div style="text-align:center; color:#16a34a; font-weight:bold; padding:10px;">DISPATCH ARCHIVED</div>';
             }
         }
     </script>
