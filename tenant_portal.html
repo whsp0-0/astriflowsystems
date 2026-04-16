@@ -5,24 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASTRIflow | Management</title>
     <style>
-        body { background: #0a0e17; color: #f8fafc; font-family: sans-serif; margin: 0; padding: 20px; }
+        body { background: #020617; color: #f8fafc; font-family: sans-serif; margin: 0; padding: 20px; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 15px; margin-bottom: 25px; }
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        .stat-card { background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 8px; text-align: center; }
-        .stat-val { font-size: 24px; font-weight: bold; color: #3b82f6; display: block; }
-        .stat-label { font-size: 10px; color: #64748b; text-transform: uppercase; }
-        .job-card { background: #111827; border: 1px solid #1e293b; padding: 15px; border-radius: 8px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-        td { padding: 12px 5px; border-bottom: 1px solid #1e293b; }
-        .btn { background: #3b82f6; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; width: 100%; cursor: pointer; }
-        .btn-complete { background: #16a34a; margin-bottom: 5px; }
+        .stat-card { background: #0f172a; border: 1px solid #3b82f6; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 0 15px rgba(59, 130, 246, 0.1); }
+        .stat-val { font-size: 28px; font-weight: bold; color: #3b82f6; display: block; }
+        .stat-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+        .job-card { background: #0f172a; border: 1px solid #1e293b; padding: 20px; border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 15px 0; border-bottom: 1px solid #1e293b; }
+        .btn { background: #3b82f6; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; }
+        .btn-complete { background: #16a34a; margin-bottom: 8px; }
         .btn-quit { background: #dc2626; }
+        .client-name { font-size: 15px; font-weight: bold; color: white; display: block; }
+        .client-info { font-size: 11px; color: #64748b; }
     </style>
 </head>
 <body>
     <div class="header">
-        <div style="font-size: 18px; font-weight: bold; color: #3b82f6;">ASTRI<span style="color:white">flow</span></div>
-        <a href="index.html" style="color: #64748b; text-decoration: none; font-size: 12px;">← Logout</a>
+        <div style="font-size: 22px; font-weight: bold; color: #3b82f6;">ASTRI<span style="color:white">flow</span></div>
+        <a href="index.html" style="color: #475569; text-decoration: none; font-size: 12px; border: 1px solid #1e293b; padding: 6px 12px; border-radius: 6px;">EXIT</a>
     </div>
 
     <div class="stats-grid">
@@ -37,13 +39,16 @@
     </div>
 
     <div class="job-card">
-        <h3 style="margin-top:0; font-size:14px; color: #3b82f6;">Live Dispatch Board</h3>
+        <h3 style="margin:0 0 15px 0; font-size:14px; color: #3b82f6; text-transform: uppercase;">Dispatch Intelligence</h3>
         <table>
-            <tbody id="board">
+            <tbody>
                 <tr>
-                    <td><b>John Smith</b><br><span style="font-size:11px; color:#64748b;">HVAC Mainline</span></td>
-                    <td id="cell-1" style="width:110px;">
-                        <button class="btn" onclick="claim(1)">Claim Job</button>
+                    <td>
+                        <span class="client-name">John Smith</span>
+                        <span class="client-info">HVAC Installation • Somerset, KY</span>
+                    </td>
+                    <td id="ops-1" style="width:120px; text-align: right;">
+                        <button class="btn" onclick="claim(1)">CLAIM</button>
                     </td>
                 </tr>
             </tbody>
@@ -52,15 +57,15 @@
 
     <script>
         function claim(id) {
-            const cell = document.getElementById('cell-' + id);
+            const cell = document.getElementById('ops-' + id);
             cell.innerHTML = `
-                <button class="btn btn-complete" onclick="finish(this)">Complete</button>
-                <button class="btn btn-quit" onclick="location.reload()">Force Quit</button>
+                <button class="btn btn-complete" onclick="finish(this)">COMPLETE</button>
+                <button class="btn btn-quit" onclick="location.reload()">QUIT</button>
             `;
         }
         function finish(btn) {
-            if(confirm("Archive this job as Completed?")) {
-                btn.parentElement.innerHTML = '<span style="color:#16a34a; font-weight:bold; font-size:12px;">ARCHIVED</span>';
+            if(confirm("Archive this job?")) {
+                btn.parentElement.innerHTML = '<span style="color:#16a34a; font-weight:bold; letter-spacing:1px; font-size:12px;">ARCHIVED</span>';
             }
         }
     </script>
