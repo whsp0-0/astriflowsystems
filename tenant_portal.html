@@ -3,58 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRIflow | Admin Hub</title>
+    <title>ASTRIflow | Tech Terminal</title>
     <style>
-        :root { --blue: #3b82f6; --red: #ef4444; --bg: #020617; --card: #0f172a; --border: #1e293b; }
-        body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 12px; font-size: 11px; }
+        :root { --blue: #3b82f6; --red: #ef4444; --green: #16a34a; --bg: #020617; --card: #0f172a; --border: #1e293b; }
+        body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 12px; }
         
-        /* Top Statistics */
-        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 15px; }
-        .stat-box { background: var(--card); border: 1px solid var(--border); padding: 10px; text-align: center; border-radius: 2px; }
-        .stat-val { color: var(--blue); font-size: 14px; font-weight: 900; display: block; }
-        .stat-lab { color: #475569; font-size: 7px; text-transform: uppercase; margin-top: 2px; }
-
-        /* Monitor Section */
-        .monitor { background: var(--card); border: 1px solid var(--border); margin-bottom: 15px; border-radius: 2px; }
-        .m-title { background: var(--border); padding: 6px 10px; font-size: 8px; font-weight: 900; color: #64748b; text-transform: uppercase; }
-        .m-row { display: flex; justify-content: space-between; padding: 8px 10px; border-top: 1px solid var(--border); }
-        .dot { height: 6px; width: 6px; background: #16a34a; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 5px #16a34a; }
-
-        /* Lead Cards */
-        .card { background: var(--card); border: 1px solid var(--border); padding: 12px; margin-bottom: 10px; border-left: 4px solid var(--blue); position: relative; }
-        .emergency { border-left-color: var(--red); }
-        .menu { position: absolute; top: 8px; right: 10px; color: #475569; font-size: 16px; font-weight: bold; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .tech-id { font-size: 10px; color: var(--blue); font-weight: bold; }
+        .dot { height: 6px; width: 6px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 4px; box-shadow: 0 0 5px var(--green); }
         
-        .c-name { font-size: 14px; font-weight: 900; color: white; display: block; margin-bottom: 8px; }
-        .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .c-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 6px; border-radius: 2px; }
-        .full { grid-column: span 2; }
-        .label { color: #475569; font-size: 7px; text-transform: uppercase; display: block; margin-bottom: 2px; }
-        .val { font-size: 10px; color: #f1f5f9; }
+        .timer-box { background: #0f172a; color: var(--blue); padding: 12px; text-align: center; border-radius: 2px; margin-bottom: 15px; border: 1px solid var(--blue); display: none; }
+        .timer-val { font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+
+        .active-job { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 15px; border-left: 4px solid var(--blue); }
+        .customer-name { font-size: 16px; font-weight: bold; display: block; margin-bottom: 15px; color: white; }
+        
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .label { font-size: 7px; color: #475569; text-transform: uppercase; display: block; margin-bottom: 2px; }
+        .val { font-size: 10px; color: #f8fafc; }
+
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 2px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; display: block; text-align: center; text-decoration: none; }
+        .btn-blue { background: var(--blue); color: white; }
+        .btn-green { background: var(--green); color: white; }
+        .btn-maps { background: #334155; color: white; border: 1px solid #475569; }
+        
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div class="stat-grid">
-        <div class="stat-box"><span class="stat-val">12</span><span class="stat-lab">Leads</span></div>
-        <div class="stat-box"><span class="stat-val">03</span><span class="stat-lab">Techs</span></div>
-        <div class="stat-box"><span class="stat-val">98%</span><span class="stat-lab">Uptime</span></div>
+    <div class="header">
+        <div style="font-size: 14px; font-weight: 900; color: white;">ASTRI<span style="color:var(--blue)">flow</span></div>
+        <div class="tech-id"><span class="dot"></span> UNIT_01 // ONLINE</div>
     </div>
 
-    <div class="monitor">
-        <div class="m-title">Employee Monitor</div>
-        <div class="m-row"><span>Unit_01 (Active)</span><span><span class="dot"></span> ONLINE</span></div>
+    <div class="timer-box" id="timer-display">
+        <span class="label" style="color:white">Live Job Duration</span>
+        <div class="timer-val" id="timer-clock">00:00:00</div>
     </div>
 
-    <div class="card emergency">
-        <div class="menu">⋮</div>
-        <span class="label" style="color:var(--red); font-weight:900; margin-bottom:4px;">! Emergency Dispatch</span>
-        <span class="c-name">John Smith</span>
-        <div class="c-grid">
-            <div class="c-item"><span class="label">Received</span><span class="val">09:45 AM</span></div>
-            <div class="c-item"><span class="label">Priority</span><span class="val" style="color:var(--red)">CRITICAL</span></div>
-            <div class="c-item full"><span class="label">Location</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
-            <div class="c-item full"><span class="label">Job Note</span><span class="val">HVAC leaking fluid in attic. Diagnostic required.</span></div>
+    <div class="active-job" id="job-card">
+        <span class="customer-name">John Smith</span>
+        
+        <div class="data-grid">
+            <div><span class="label">Contact</span><span class="val"><a href="tel:6065550199" style="color:var(--blue); text-decoration:none;">(606) 555-0199</a></span></div>
+            <div><span class="label">Priority</span><span id="job-status" class="val" style="color:var(--red)">EMERGENCY</span></div>
+            <div style="grid-column: span 2;"><span class="label">Location</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
+            <div style="grid-column: span 2;"><span class="label">Task</span><span class="val">HVAC leaking fluid in attic. Diagnostic required.</span></div>
+        </div>
+
+        <button id="claim-btn" class="btn btn-blue" onclick="claimJob()">Claim & Start Route</button>
+        
+        <div id="active-actions" class="hidden">
+            <a href="https://www.google.com/maps/search/?api=1&query=123+Main+St+Somerset+KY" target="_blank" class="btn btn-maps">Open GPS Navigation</a>
+            <button class="btn btn-green" style="margin-top: 10px;" onclick="completeJob()">Finalize & Complete</button>
         </div>
     </div>
+
+    <script>
+        let seconds = 0;
+        let timerInterval;
+
+        function updateTimer() {
+            seconds++;
+            let hrs = Math.floor(seconds / 3600);
+            let mins = Math.floor((seconds % 3600) / 60);
+            let secs = seconds % 60;
+            document.getElementById('timer-clock').innerText = 
+                (hrs < 10 ? "0" + hrs : hrs) + ":" + 
+                (mins < 10 ? "0" + mins : mins) + ":" + 
+                (secs < 10 ? "0" + secs : secs);
+        }
+
+        function claimJob() {
+            document.getElementById('claim-btn').classList.add('hidden');
+            document.getElementById('active-actions').classList.remove('hidden');
+            document.getElementById('timer-display').style.display = 'block';
+            document.getElementById('job-status').innerText = "EN ROUTE";
+            document.getElementById('job-status').style.color = "#ca8a04";
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function completeJob() {
+            if(confirm("Mark job as 100% complete?")) {
+                clearInterval(timerInterval);
+                document.getElementById('job-card').style.opacity = "0.2";
+                document.getElementById('job-status').innerText = "ARCHIVED";
+                document.getElementById('job-status').style.color = "#16a34a";
+                alert("Session Logged.");
+            }
+        }
+    </script>
 </body>
 </html>
