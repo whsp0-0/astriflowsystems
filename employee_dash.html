@@ -5,26 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ASTRIflow | Tech Terminal</title>
     <style>
-        :root { --blue: #3b82f6; --bg: #020617; --card: #0f172a; --border: #1e293b; }
+        :root { --blue: #3b82f6; --red: #ef4444; --green: #16a34a; --bg: #020617; --card: #0f172a; --border: #1e293b; }
         body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 12px; }
         
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
         .tech-id { font-size: 10px; color: var(--blue); font-weight: bold; }
         
-        .section-label { font-size: 9px; color: #475569; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        
-        .active-job { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 15px; border-left: 4px solid #ef4444; }
+        .timer-box { background: #1e293b; color: var(--blue); padding: 10px; text-align: center; border-radius: 2px; margin-bottom: 15px; border: 1px solid var(--blue); display: none; }
+        .timer-val { font-size: 20px; font-weight: bold; }
+
+        .active-job { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 15px; border-left: 4px solid var(--blue); }
         .customer-name { font-size: 16px; font-weight: bold; display: block; margin-bottom: 15px; }
         
-        .data-point { margin-bottom: 12px; }
-        .label { font-size: 8px; color: #475569; text-transform: uppercase; display: block; margin-bottom: 2px; }
-        .val { font-size: 11px; color: #f8fafc; }
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .label { font-size: 7px; color: #475569; text-transform: uppercase; display: block; }
+        .val { font-size: 10px; color: #f8fafc; }
 
-        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .btn { padding: 12px; border: none; border-radius: 2px; font-size: 10px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; text-decoration: none; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 2px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; display: block; text-align: center; text-decoration: none; }
         .btn-blue { background: var(--blue); color: white; }
-        .btn-green { background: #16a34a; color: white; }
-        .btn-maps { background: #334155; color: white; grid-column: span 2; margin-top: 5px; }
+        .btn-green { background: var(--green); color: white; }
+        .btn-maps { background: #334155; color: white; }
+        
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -33,35 +35,61 @@
         <div class="tech-id">UNIT_01 // ONLINE</div>
     </div>
 
-    <span class="section-label">Current Assignment</span>
+    <div class="timer-box" id="timer-display">
+        <span class="label" style="color:white">Active Job Duration</span>
+        <div class="timer-val" id="timer-clock">00:00:00</div>
+    </div>
 
-    <div class="active-job">
+    <div class="active-job" id="job-card">
         <span class="customer-name">John Smith</span>
         
-        <div class="data-point">
-            <span class="label">Job Description</span>
-            <span class="val">HVAC leaking fluid in attic. Diagnostic and repair.</span>
+        <div class="data-grid">
+            <div><span class="label">Phone</span><span class="val">(606) 555-0199</span></div>
+            <div><span class="label">Status</span><span id="job-status" class="val" style="color:var(--red)">PENDING</span></div>
+            <div style="grid-column: span 2;"><span class="label">Job Description</span><span class="val">HVAC Leaking - Emergency Repair</span></div>
         </div>
 
-        <div class="data-point">
-            <span class="label">Phone Number</span>
-            <span class="val"><a href="tel:6065550199" style="color:var(--blue); text-decoration: none;">(606) 555-0199</a></span>
-        </div>
-
-        <div class="data-point">
-            <span class="label">Exact Address</span>
-            <span class="val">123 Main St, Somerset, KY 42501</span>
-        </div>
-
-        <div class="action-row">
-            <a href="https://www.google.com/maps/search/?api=1&query=123+Main+St+Somerset+KY" class="btn btn-maps">Open GPS Route</a>
-            <button class="btn btn-green" onclick="alert('Job marked as complete.')">Complete</button>
-            <button class="btn btn-blue" onclick="alert('Updating Dispatch...')">On Site</button>
+        <button id="claim-btn" class="btn btn-blue" onclick="claimJob()">Claim & Start Route</button>
+        
+        <div id="active-actions" class="hidden">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Somerset,KY" target="_blank" class="btn btn-maps">Navigate to Job</a>
+            <button class="btn btn-green" style="margin-top: 10px;" onclick="completeJob()">Mark as Completed</button>
         </div>
     </div>
 
-    <div style="text-align:center; margin-top:30px;">
-        <a href="index.html" style="color:#1e293b; font-size:10px; text-decoration:none;">LOGOUT TERMINAL</a>
-    </div>
+    <script>
+        let seconds = 0;
+        let timerInterval;
+
+        function updateTimer() {
+            seconds++;
+            let hrs = Math.floor(seconds / 3600);
+            let mins = Math.floor((seconds % 3600) / 60);
+            let secs = seconds % 60;
+            document.getElementById('timer-clock').innerText = 
+                (hrs < 10 ? "0" + hrs : hrs) + ":" + 
+                (mins < 10 ? "0" + mins : mins) + ":" + 
+                (secs < 10 ? "0" + secs : secs);
+        }
+
+        function claimJob() {
+            document.getElementById('claim-btn').classList.add('hidden');
+            document.getElementById('active-actions').classList.remove('hidden');
+            document.getElementById('timer-display').style.display = 'block';
+            document.getElementById('job-status').innerText = "EN ROUTE";
+            document.getElementById('job-status').style.color = "#ca8a04";
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function completeJob() {
+            if(confirm("Confirm job completion?")) {
+                clearInterval(timerInterval);
+                document.getElementById('job-card').style.opacity = "0.3";
+                document.getElementById('job-status').innerText = "FINISHED";
+                document.getElementById('job-status').style.color = var(--green);
+                alert("Job Logged. Return to base.");
+            }
+        }
+    </script>
 </body>
 </html>
