@@ -6,89 +6,16 @@
     <title>ASTRIflow Management</title>
     <style>
         :root { --blue: #3b82f6; --bg: #020617; --card: #0f172a; --border: #1e293b; }
-        body { background: var(--bg); color: #f8fafc; font-family: sans-serif; margin: 0; padding: 12px; }
+        body { background: var(--bg); color: #f8fafc; font-family: -apple-system, sans-serif; margin: 0; padding: 12px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .logo { font-size: 16px; font-weight: 900; color: var(--blue); letter-spacing: -1px; }
         
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .logo { font-size: 18px; font-weight: 800; color: var(--blue); }
-        .emergency-label { color: #ef4444; font-size: 10px; font-weight: bold; border: 1px solid #ef4444; padding: 2px 6px; border-radius: 3px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 15px; }
+        .box { background: var(--card); border: 1px solid var(--border); padding: 10px 0; border-radius: 4px; text-align: center; }
+        .val { display: block; font-size: 18px; font-weight: bold; color: var(--blue); }
+        .lbl { font-size: 8px; color: #475569; text-transform: uppercase; }
 
-        /* The 3-Box Grid you liked */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .box { background: var(--card); border: 1px solid var(--border); padding: 12px 5px; border-radius: 4px; text-align: center; }
-        .val { display: block; font-size: 20px; font-weight: bold; color: var(--blue); }
-        .lbl { font-size: 8px; color: #64748b; text-transform: uppercase; margin-top: 2px; }
-
-        /* Fleet Operations Status */
-        .monitor { background: var(--card); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 15px; }
-        .mon-head { background: #1e293b; padding: 6px 10px; font-size: 10px; font-weight: bold; color: #94a3b8; }
-        .row { display: flex; justify-content: space-between; padding: 8px 10px; font-size: 11px; border-bottom: 1px solid var(--border); }
-        .dot { height: 6px; width: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; }
-        .online { background: #16a34a; box-shadow: 0 0 5px #16a34a; }
-        .idle { background: #ca8a04; }
-
-        /* Job Card - Dense & Professional */
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 15px; position: relative; }
-        .dots { position: absolute; top: 12px; right: 12px; color: #475569; font-weight: bold; }
-        .job-b { font-size: 15px; font-weight: bold; margin-bottom: 10px; display: block; }
-        .line { font-size: 11px; color: #94a3b8; margin-bottom: 4px; display: flex; }
-        .lab { width: 70px; color: #475569; font-weight: bold; }
-        .v { color: #f8fafc; }
-
-        .btn { width: 100%; padding: 10px; border: none; border-radius: 3px; font-size: 11px; font-weight: 800; cursor: pointer; margin-top: 12px; text-transform: uppercase; }
-        .btn-claim { background: var(--blue); color: white; }
-        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-        .btn-done { background: #16a34a; color: white; }
-        .btn-quit { background: #334155; color: white; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="logo">ASTRI<span style="color:white">flow</span></div>
-        <div class="emergency-label">STATUS: ACTIVE</div>
-    </div>
-
-    <div class="grid">
-        <div class="box"><span class="val">12</span><span class="lbl">Leads</span></div>
-        <div class="box"><span class="val">03</span><span class="lbl">Units</span></div>
-        <div class="box"><span class="val">98%</span><span class="lbl">Success</span></div>
-    </div>
-
-    <div class="monitor">
-        <div class="mon-head">FLEET OPERATIONS</div>
-        <div class="row"><span>Tech_01 (Mobile)</span> <span><span class="dot online"></span> ONLINE</span></div>
-        <div class="row"><span>Tech_02 (Standby)</span> <span><span class="dot idle"></span> IDLE</span></div>
-    </div>
-
-    <div class="card" id="c1">
-        <div class="dots">⋮</div>
-        <span class="job-b">John Smith</span>
-        <div class="line"><span class="lab">LOCATION:</span> <span class="v">Somerset, KY</span></div>
-        <div class="line"><span class="lab">PHONE:</span> <span class="v">(606) 555-0199</span></div>
-        <div class="line"><span class="lab">TIME:</span> <span class="v">08:45 AM</span></div>
-        <div class="line"><span class="lab">STATUS:</span> <span id="s1" style="color: var(--blue); font-weight:bold;">AVAILABLE</span></div>
-
-        <div id="a1">
-            <button class="btn btn-claim" onclick="claim(1)">Initiate Dispatch</button>
-        </div>
-    </div>
-
-    <script>
-        function claim(id) {
-            document.getElementById('s1').innerText = "EN ROUTE";
-            document.getElementById('s1').style.color = "#ca8a04";
-            document.getElementById('a1').innerHTML = `
-                <div class="action-row">
-                    <button class="btn btn-done" onclick="complete(1)">Complete</button>
-                    <button class="btn btn-quit" onclick="location.reload()">Abort</button>
-                </div>
-            `;
-        }
-        function complete(id) {
-            if(confirm("Archive job?")) {
-                document.getElementById('c1').style.opacity = "0.3";
-                document.getElementById('a1').innerHTML = '<div style="text-align:center; color:#16a34a; font-size:10px; font-weight:bold; margin-top:10px;">ARCHIVED</div>';
-            }
-        }
-    </script>
-</body>
-</html>
+        .fleet { background: var(--card); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 12px; font-size: 11px; }
+        .f-head { background: var(--border); padding: 4px 10px; font-size: 9px; color: #94a3b8; font-weight: bold; }
+        .f-row { display: flex; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+        .dot { height:
