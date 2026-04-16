@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ASTRIflow | Tech Terminal</title>
+    <title>ASTRIflow | Tech Dash</title>
     <style>
         :root { --blue: #3b82f6; --red: #ef4444; --green: #16a34a; --bg: #020617; --card: #0f172a; --border: #1e293b; }
         body { background: var(--bg); color: #f8fafc; font-family: monospace; margin: 0; padding: 12px; }
@@ -11,14 +11,13 @@
         .timer-box { background: #0f172a; color: var(--blue); padding: 12px; text-align: center; border-radius: 2px; margin-bottom: 15px; border: 1px solid var(--blue); display: none; }
         .timer-val { font-size: 22px; font-weight: bold; }
         .active-job { background: var(--card); border: 1px solid var(--border); border-radius: 2px; padding: 15px; border-left: 4px solid var(--red); }
-        .customer-name { font-size: 16px; font-weight: bold; display: block; margin-bottom: 12px; color: white; }
+        .customer-name { font-size: 16px; font-weight: bold; display: block; margin-bottom: 12px; color: white; text-align: center; }
         .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
         .lead-item { background: rgba(255,255,255,0.02); padding: 6px; border: 1px solid var(--border); border-radius: 2px; }
-        .full { grid-column: span 2; }
-        .label { color: #475569; font-size: 7px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+        .label { color: #475569; font-size: 7px; text-transform: uppercase; display: block; }
         .val { font-size: 10px; }
-        .btn-stack { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 15px; }
-        .btn { width: 100%; max-width: 300px; padding: 14px; border: none; border-radius: 2px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+        .btn-stack { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .btn { width: 100%; max-width: 280px; padding: 14px; border: none; border-radius: 2px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; text-decoration: none; }
         .btn-blue { background: var(--blue); color: white; }
         .btn-green { background: var(--green); color: white; }
         .btn-maps { background: #334155; color: white; border: 1px solid #475569; }
@@ -30,39 +29,24 @@
         <div style="font-size: 14px; font-weight: 900; color: white;">ASTRI<span style="color:var(--blue)">flow</span></div>
         <div style="font-size: 10px; color: var(--blue); font-weight: bold;">UNIT_01 // ONLINE</div>
     </div>
-
-    <div class="timer-box" id="timer-display">
-        <span class="label" style="color:white">Live Job Duration</span>
-        <div class="timer-val" id="timer-clock">00:00:00</div>
-    </div>
-
+    <div class="timer-box" id="timer-display"><div class="timer-val" id="timer-clock">00:00:00</div></div>
     <div class="active-job" id="job-card">
         <span class="customer-name">John Smith (EMERGENCY)</span>
         <div class="data-grid">
-            <div class="lead-item"><span class="label">Contact</span><span class="val"><a href="tel:6065550199" style="color:var(--blue); text-decoration:none;">(606) 555-0199</a></span></div>
+            <div class="lead-item"><span class="label">Contact</span><span class="val"><a href="tel:6065550199" style="color:var(--blue);text-decoration:none;">(606) 555-0199</a></span></div>
             <div class="lead-item"><span class="label">Priority</span><span id="job-status" class="val" style="color:var(--red)">URGENT</span></div>
-            <div class="lead-item full"><span class="label">Location</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
-            <div class="lead-item full"><span class="label">Task</span><span class="val">HVAC leaking fluid in attic. Diagnostic required.</span></div>
+            <div class="lead-item" style="grid-column: span 2;"><span class="label">Address</span><span class="val">123 Main St, Somerset, KY 42501</span></div>
         </div>
-
         <div class="btn-stack">
             <button id="claim-btn" class="btn btn-blue" onclick="claimJob()">Claim & Start Route</button>
             <div id="active-actions" class="hidden" style="width:100%; text-align:center;">
-                <a href="https://www.google.com/maps/search/?api=1&query=123+Main+St+Somerset+KY" target="_blank" class="btn btn-maps" style="margin: 0 auto;">Open GPS Navigation</a>
-                <button class="btn btn-green" style="margin: 10px auto 0;" onclick="completeJob()">Finalize & Complete</button>
+                <a href="https://www.google.com/maps/search/?api=1&query=123+Main+St+Somerset+KY" target="_blank" class="btn btn-maps">Open GPS Navigation</a>
+                <button class="btn btn-green" style="margin-top:10px;" onclick="completeJob()">Finalize & Complete</button>
             </div>
         </div>
     </div>
-
     <script>
-        // PASSIVE AUTO-REFRESH (Every 30 seconds)
-        // This keeps the "old people" happy so they don't have to manual refresh.
-        setInterval(() => {
-            if (document.getElementById('timer-display').style.display !== 'block') {
-                location.reload();
-            }
-        }, 30000);
-
+        setInterval(() => { if (document.getElementById('timer-display').style.display !== 'block') { location.reload(); } }, 30000);
         let seconds = 0; let timerInterval;
         function updateTimer() {
             seconds++;
@@ -77,12 +61,7 @@
             document.getElementById('job-status').style.color = "#ca8a04";
             timerInterval = setInterval(updateTimer, 1000);
         }
-        function completeJob() {
-            if(confirm("Confirm completion?")) {
-                clearInterval(timerInterval);
-                document.getElementById('job-card').style.opacity = "0.2";
-            }
-        }
+        function completeJob() { if(confirm("Confirm job completion?")) { clearInterval(timerInterval); document.getElementById('job-card').style.opacity = "0.2"; } }
     </script>
 </body>
 </html>
