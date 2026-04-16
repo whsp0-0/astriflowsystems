@@ -18,4 +18,29 @@
         .card { background: var(--card); border: 1px solid var(--border); padding: 12px; margin-bottom: 10px; border-left: 4px solid var(--blue); position: relative; }
         .emergency { border-left-color: var(--red); }
         .menu { position: absolute; top: 8px; right: 10px; color: #475569; font-size: 16px; font-weight: bold; }
-        .c-name { font-
+        .c-name { font-size: 14px; font-weight: 900; color: white; display: block; margin-bottom: 8px; }
+        .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .c-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 6px; }
+        .full { grid-column: span 2; }
+        .label { color: #475569; font-size: 7px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+        .val { font-size: 10px; color: #f1f5f9; }
+    </style>
+</head>
+<body>
+    <div class="stat-grid">
+        <div class="stat-box"><span class="stat-val">12</span><span class="stat-lab">Leads</span></div>
+        <div class="stat-box"><span class="stat-val">03</span><span class="stat-lab">Techs</span></div>
+        <div class="stat-box"><span class="stat-val">98%</span><span class="stat-lab">Uptime</span></div>
+    </div>
+    <div class="monitor">
+        <div class="m-head">Employee Monitor</div>
+        <div class="m-row"><span>Unit_01 (Somerset)</span><span><span class="dot"></span> ONLINE</span></div>
+    </div>
+    <div class="card emergency">
+        <div class="menu">⋮</div>
+        <span class="label" style="color:var(--red); font-weight:900;">! Emergency Dispatch</span>
+        <span class="c-name">John Smith</span>
+        <div class="c-grid">
+            <div class="c-item"><span class="label">Received</span><span class="val">09:45 AM</span></div>
+            <div class="c-item"><span class="label">Priority</span><span class="val" style="color:var(--red)">URGENT</span></div>
+            <div class="c-item full"><span class="label">Location</span><span class="val">123 Main St, Somerset, KY
