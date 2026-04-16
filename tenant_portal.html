@@ -2,42 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASTRIflow | Terminal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ASTRIflow | Command</title>
     <style>
-        body { background: #020617; color: #f8fafc; font-family: sans-serif; margin: 0; padding: 15px; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .logo { font-size: 20px; font-weight: 800; color: #3b82f6; }
-        .emergency { color: #ef4444; font-size: 10px; font-weight: bold; border: 1px solid #ef4444; padding: 3px 8px; border-radius: 4px; }
+        :root { --blue: #3b82f6; --bg: #020617; --card: #0f172a; --border: #1e293b; }
+        body { background: var(--bg); color: #f8fafc; font-family: -apple-system, sans-serif; margin: 0; padding: 12px; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .logo { font-size: 18px; font-weight: 900; color: var(--blue); letter-spacing: -1px; }
+        .session-tag { font-size: 9px; color: #ef4444; border: 1px solid #ef4444; padding: 2px 6px; border-radius: 2px; font-weight: bold; }
 
-        /* The 3-Box Grid */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .box { background: #0f172a; border: 1px solid #1e293b; padding: 15px 5px; border-radius: 6px; text-align: center; }
-        .val { display: block; font-size: 22px; font-weight: bold; color: #3b82f6; }
-        .lbl { font-size: 9px; color: #64748b; text-transform: uppercase; margin-top: 4px; }
+        /* The Grid */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+        .box { background: var(--card); border: 1px solid var(--border); padding: 12px 0; border-radius: 4px; text-align: center; }
+        .val { display: block; font-size: 20px; font-weight: bold; color: var(--blue); }
+        .lbl { font-size: 8px; color: #475569; text-transform: uppercase; margin-top: 2px; }
 
-        /* Fleet Operations */
-        .monitor { background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; margin-bottom: 20px; }
-        .m-head { background: #1e293b; padding: 8px 12px; font-size: 11px; font-weight: bold; color: #94a3b8; border-radius: 6px 6px 0 0; }
-        .row { display: flex; justify-content: space-between; padding: 12px; border-bottom: 1px solid #1e293b; font-size: 13px; }
-        .dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
-        .online { background: #16a34a; box-shadow: 0 0 8px #16a34a; }
+        /* Fleet Monitor */
+        .monitor { background: var(--card); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 15px; }
+        .m-head { background: var(--border); padding: 6px 10px; font-size: 9px; color: #94a3b8; font-weight: bold; }
+        .row { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border); font-size: 11px; }
+        .dot { height: 6px; width: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .on { background: #16a34a; box-shadow: 0 0 5px #16a34a; }
 
-        /* Job Card */
-        .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; position: relative; }
-        .dots { position: absolute; top: 15px; right: 15px; color: #475569; font-size: 20px; }
-        .job-b { font-size: 18px; font-weight: bold; margin-bottom: 10px; display: block; }
-        .line { font-size: 12px; color: #94a3b8; margin-bottom: 6px; }
-        .tag { color: #475569; font-weight: bold; width: 75px; display: inline-block; }
+        /* Dispatch Card */
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 15px; position: relative; border-left: 3px solid var(--blue); }
+        .dots { position: absolute; top: 12px; right: 12px; color: #334155; font-weight: bold; }
+        .j-name { font-size: 15px; font-weight: bold; margin-bottom: 10px; display: block; }
+        .j-line { font-size: 11px; color: #94a3b8; margin-bottom: 4px; display: flex; }
+        .j-tag { width: 65px; color: #475569; font-weight: bold; }
 
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 6px; font-weight: bold; font-size: 13px; cursor: pointer; margin-top: 15px; }
-        .btn-claim { background: #3b82f6; color: white; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 3px; font-size: 11px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 15px; }
+        .btn-blue { background: var(--blue); color: white; }
+        .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .btn-green { background: #16a34a; color: white; }
+        .btn-gray { background: #334155; color: white; }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="logo">ASTRI<span style="color:white">flow</span></div>
-        <div class="emergency">SESSION: SECURE</div>
+        <div class="session-tag">SECURE_NODE</div>
     </div>
 
     <div class="grid">
@@ -48,17 +53,38 @@
 
     <div class="monitor">
         <div class="m-head">FLEET OPERATIONS</div>
-        <div class="row"><span>UNIT_01 (Mobile)</span> <span><span class="dot online"></span> ONLINE</span></div>
+        <div class="row"><span>UNIT_01 (Mobile)</span> <span><span class="dot on"></span> ONLINE</span></div>
         <div class="row" style="border:none;"><span>UNIT_02 (Standby)</span> <span><span class="dot" style="background:#ca8a04"></span> READY</span></div>
     </div>
 
-    <div class="card">
+    <div class="card" id="card">
         <div class="dots">⋮</div>
-        <span class="job-b">John Smith</span>
-        <div class="line"><span class="tag">LOCATION:</span> Somerset, KY</div>
-        <div class="line"><span class="tag">PHONE:</span> (606) 555-0199</div>
-        <div class="line"><span class="tag">SERVICE:</span> HVAC Install</div>
-        <button class="btn btn-claim" onclick="alert('Dispatch Initiated')">CLAIM & START DISPATCH</button>
+        <span class="j-name">John Smith</span>
+        <div class="j-line"><span class="j-tag">LOC:</span> Somerset, KY</div>
+        <div class="j-line"><span class="j-tag">TEL:</span> (606) 555-0199</div>
+        <div class="j-line"><span class="j-tag">STATUS:</span> <span id="status" style="color:var(--blue); font-weight:bold;">AVAILABLE</span></div>
+        
+        <div id="action-zone">
+            <button class="btn btn-blue" onclick="claim()">Claim & Dispatch</button>
+        </div>
     </div>
+
+    <script>
+        function claim() {
+            document.getElementById('status').innerText = "EN ROUTE";
+            document.getElementById('status').style.color = "#ca8a04";
+            document.getElementById('action-zone').innerHTML = `
+                <div class="btn-row">
+                    <button class="btn btn-green" onclick="finish()">Complete</button>
+                    <button class="btn btn-gray" onclick="location.reload()">Abort</button>
+                </div>`;
+        }
+        function finish() {
+            if(confirm("Archive lead?")) {
+                document.getElementById('card').style.opacity = "0.2";
+                document.getElementById('action-zone').innerHTML = '<div style="text-align:center; font-size:10px; color:#16a34a; font-weight:bold; padding:10px;">ARCHIVED</div>';
+            }
+        }
+    </script>
 </body>
 </html>
